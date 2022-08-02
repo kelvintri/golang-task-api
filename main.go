@@ -16,6 +16,7 @@ func main() {
 
 	//routes
 	routes.UserRoute(app) //add this
+	routes.TaskRoute(app)
 
 	port := os.Getenv("PORT")
 	if port == "" {
