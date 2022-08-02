@@ -1,1 +1,1 @@
-web: fiber-golang-api
+web: bin/fiber-golang-api
