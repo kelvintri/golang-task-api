@@ -1,13 +1,15 @@
 package models
 
 import (
+	"time"
+
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type Task struct {
-	Id       primitive.ObjectID `json:"id,omitempty"`
-	TaskName string             `json:"taskname,omitempty" validate:"required"`
-	Assignee string             `json:"assignee,omitempty" validate:"required"`
-	TaskDone bool               `json:"taskdone,omitempty"`
-	Date     primitive.DateTime `json:"date,omitempty"`
+	Id          primitive.ObjectID `json:"id,omitempty"`
+	TaskName    string             `json:"taskname,omitempty" validate:"required"`
+	Assignee    string             `json:"assignee,omitempty" validate:"required"`
+	TaskDone    bool               `json:"taskdone,omitempty"`
+	CreatedDate time.Time          `json:"createddate"`
 }

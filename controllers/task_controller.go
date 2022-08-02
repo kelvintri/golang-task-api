@@ -32,11 +32,11 @@ func CreateTask(c *fiber.Ctx) error {
 	}
 
 	newTask := models.Task{
-		Id:       primitive.NewObjectID(),
-		TaskName: task.TaskName,
-		Assignee: task.Assignee,
-		TaskDone: task.TaskDone,
-		Date:     primitive.DateTime(task.Date.Time().Nanosecond()),
+		Id:          primitive.NewObjectID(),
+		TaskName:    task.TaskName,
+		Assignee:    task.Assignee,
+		TaskDone:    task.TaskDone,
+		CreatedDate: time.Now(),
 	}
 
 	result, err := taskCollection.InsertOne(ctx, newTask)
