@@ -4,6 +4,8 @@ import (
 	"fiber-mongo-api/configs"
 	"fiber-mongo-api/routes" //add this
 
+	"os"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -16,5 +18,5 @@ func main() {
 	//routes
 	routes.UserRoute(app) //add this
 
-	app.Listen(":6000")
+	app.Listen(os.Getenv("PORT"))
 }

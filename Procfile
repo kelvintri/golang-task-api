@@ -1,0 +1,1 @@
+worker: fiber-golang-api
