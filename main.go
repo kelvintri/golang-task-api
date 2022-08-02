@@ -4,8 +4,6 @@ import (
 	"fiber-mongo-api/configs"
 	"fiber-mongo-api/routes" //add this
 
-	"os"
-
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -18,5 +16,5 @@ func main() {
 	//routes
 	routes.UserRoute(app) //add this
 
-	app.Listen(os.Getenv("PORT"))
+	app.Listen(":8080")
 }
