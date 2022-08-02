@@ -1,1 +1,1 @@
-worker: fiber-golang-api
+web: fiber-golang-api
