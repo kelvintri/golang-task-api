@@ -19,6 +19,10 @@ func main() {
 	routes.UserRoute(app) //add this
 	routes.TaskRoute(app)
 	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "*",
+		AllowHeaders: "Origin, Content-Type, Accept",
+	}))
 
 	port := os.Getenv("PORT")
 	if port == "" {
