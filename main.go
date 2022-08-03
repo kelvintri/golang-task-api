@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
@@ -17,6 +18,7 @@ func main() {
 	//routes
 	routes.UserRoute(app) //add this
 	routes.TaskRoute(app)
+	app.Use(cors.New())
 
 	port := os.Getenv("PORT")
 	if port == "" {
