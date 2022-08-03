@@ -14,15 +14,13 @@ func main() {
 
 	//run database
 	configs.ConnectDB()
-
-	//routes
-	routes.UserRoute(app) //add this
-	routes.TaskRoute(app)
-	app.Use(cors.New())
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
+	//routes
+	routes.UserRoute(app) //add this
+	routes.TaskRoute(app)
 
 	port := os.Getenv("PORT")
 	if port == "" {
