@@ -10,7 +10,7 @@ type Task struct {
 	Id          primitive.ObjectID `json:"id,omitempty"`
 	TaskName    string             `json:"taskname,omitempty" validate:"required"`
 	Assignee    string             `json:"assignee,omitempty" validate:"required"`
-	TaskDone    bool               `json:"taskdone"`
+	TaskDone    bool               `json:"taskdone,string"`
 	CreatedDate time.Time          `json:"createddate"`
 	DeadLine    string             `json:"deadline"`
 }
