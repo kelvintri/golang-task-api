@@ -12,4 +12,5 @@ type Task struct {
 	Assignee    string             `json:"assignee,omitempty" validate:"required"`
 	TaskDone    bool               `json:"taskdone"`
 	CreatedDate time.Time          `json:"createddate"`
+	DeadLine    string             `json:"deadline"`
 }

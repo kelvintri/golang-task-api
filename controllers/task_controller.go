@@ -37,6 +37,7 @@ func CreateTask(c *fiber.Ctx) error {
 		Assignee:    task.Assignee,
 		TaskDone:    task.TaskDone,
 		CreatedDate: time.Now(),
+		DeadLine:    task.DeadLine,
 	}
 
 	result, err := taskCollection.InsertOne(ctx, newTask)
@@ -81,7 +82,7 @@ func EditATask(c *fiber.Ctx) error {
 		return c.Status(http.StatusBadRequest).JSON(responses.TaskResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": validationErr.Error()}})
 	}
 
-	update := bson.M{"taskname": task.TaskName, "assignee": task.Assignee, "taskdone": task.TaskDone}
+	update := bson.M{"taskname": task.TaskName, "assignee": task.Assignee, "taskdone": task.TaskDone, "deadline": task.DeadLine}
 
 	result, err := taskCollection.UpdateOne(ctx, bson.M{"id": objId}, bson.M{"$set": update})
 	if err != nil {
