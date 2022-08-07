@@ -150,3 +150,26 @@ func GetAllTasks(c *fiber.Ctx) error {
 		responses.TaskResponse{Status: http.StatusOK, Message: "success", Data: &fiber.Map{"data": tasks}},
 	)
 }
+
+func MarkATaskAsDone(c *fiber.Ctx) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	taskId := c.Params("taskId")
+	defer cancel()
+
+	objId, _ := primitive.ObjectIDFromHex(taskId)
+
+	result, err := taskCollection.UpdateOne(ctx, bson.M{"id": objId}, bson.M{"$set": bson.M{"taskdone": true}})
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(responses.TaskResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})
+	}
+
+	if result.MatchedCount == 1 {
+		return c.Status(http.StatusOK).JSON(
+			responses.TaskResponse{Status: http.StatusOK, Message: "success", Data: &fiber.Map{"data": "Task successfully marked as done!"}},
+		)
+	}
+
+	return c.Status(http.StatusNotFound).JSON(
+		responses.TaskResponse{Status: http.StatusNotFound, Message: "error", Data: &fiber.Map{"data": "Task with specified ID not found!"}},
+	)
+}
