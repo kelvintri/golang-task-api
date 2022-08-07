@@ -13,4 +13,5 @@ func TaskRoute(app *fiber.App) {
 	app.Delete("/task/:taskId", controllers.DeleteATask)
 	app.Put("/task/:taskId/done", controllers.MarkATaskAsDone)
 	app.Get("/tasks", controllers.GetAllTasks)
+	app.Get("/tasks/done", controllers.GetAllDoneTasks)
 }

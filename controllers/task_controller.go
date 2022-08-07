@@ -173,3 +173,31 @@ func MarkATaskAsDone(c *fiber.Ctx) error {
 		responses.TaskResponse{Status: http.StatusNotFound, Message: "error", Data: &fiber.Map{"data": "Task with specified ID not found!"}},
 	)
 }
+
+//list of task that done
+func GetAllDoneTasks(c *fiber.Ctx) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	var tasks []models.Task
+	defer cancel()
+
+	results, err := taskCollection.Find(ctx, bson.M{"taskdone": true})
+
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(responses.TaskResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})
+	}
+
+	//reading from the db in an optimal way
+	defer results.Close(ctx)
+	for results.Next(ctx) {
+		var singleTask models.Task
+		if err = results.Decode(&singleTask); err != nil {
+			return c.Status(http.StatusInternalServerError).JSON(responses.TaskResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})
+		}
+
+		tasks = append(tasks, singleTask)
+	}
+
+	return c.Status(http.StatusOK).JSON(
+		responses.TaskResponse{Status: http.StatusOK, Message: "success", Data: &fiber.Map{"data": tasks}},
+	)
+}
