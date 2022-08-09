@@ -19,7 +19,6 @@ func main() {
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
 	//routes
-	routes.UserRoute(app) //add this
 	routes.TaskRoute(app)
 
 	port := os.Getenv("PORT")
